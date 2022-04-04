@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--EVENT-->
+    <bean id="eventStorage" class="com.epam.m8_springcore.storage.EventStorage">
+    </bean>
+
+    <bean id="eventDAO" class="com.epam.m8_springcore.dao.EventDAO">
+        <property name="eventStorage" ref="eventStorage"/>
+    </bean>
+
+    <bean id="eventService" class="com.epam.m8_springcore.service.EventService">
+        <property name="eventDAO" ref="eventDAO"/>
+    </bean>
+
+    <!--TICKET-->
+    <bean id="ticketStorage" class="com.epam.m8_springcore.storage.TicketStorage">
+    </bean>
+
+    <bean id="ticketDAO" class="com.epam.m8_springcore.dao.TicketDAO">
+        <property name="ticketStorage" ref="ticketStorage"/>
+    </bean>
+
+    <bean id="ticketService" class="com.epam.m8_springcore.service.TicketService">
+        <property name="ticketDAO" ref="ticketDAO"/>
+    </bean>
+
+    <!--USER-->
+    <bean id="userStorage" class="com.epam.m8_springcore.storage.UserStorage">
+    </bean>
+
+    <bean id="userDAO" class="com.epam.m8_springcore.dao.UserDAO">
+        <property name="userStorage" ref="userStorage"/>
+    </bean>
+
+    <bean id="userService" class="com.epam.m8_springcore.service.UserService">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+    <!--FACADE-->
+    <bean id="bookingFacadeImpl" class="com.epam.m8_springcore.facade.BookingFacadeImpl">
+        <constructor-arg ref="eventService"/>
+        <constructor-arg ref="ticketService"/>
+        <constructor-arg ref="userService"/>
+    </bean>
+</beans>
